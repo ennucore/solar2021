@@ -1,8 +1,13 @@
 # coding: utf-8
 # license: GPLv3
 
+class SpaceObject:
+    def update_params(self,  **params):
+        """Обновить параметры космического объекта"""
+        for param_name in params.keys():
+            setattr(self, param_name, params[param_name])
 
-class Star:
+class Star(SpaceObject):
     """Тип данных, описывающий звезду.
     Содержит массу, координаты, скорость звезды,
     а также визуальный радиус звезды в пикселах и её цвет.
@@ -39,7 +44,7 @@ class Star:
     """Цвет звезды"""
 
 
-class Planet:
+class Planet(SpaceObject):
     """Тип данных, описывающий планету.
     Содержит массу, координаты, скорость планеты,
     а также визуальный радиус планеты в пикселах и её цвет

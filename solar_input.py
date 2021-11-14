@@ -56,10 +56,11 @@ def parse_object_parameters(line: str, obj: SpaceObject):
     """
     _, r, c, m, x, y, vx, vy = line.split()
     r, m, x, y, vx, vy = tuple(map(float, (r, m, x, y, vx, vy)))  # Convert star data to int if nes
+    print(f'{vx=}, {vy=}')
     obj.update_params(r=r,
                       m=m,
-                      vx=vx,
-                      vy=vy,
+                      Vx=vx,
+                      Vy=vy,
                       color=c,
                       x=x,
                       y=y

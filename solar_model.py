@@ -2,7 +2,7 @@
 # license: GPLv3
 from solar_objects import SpaceObject
 import numpy as np
-from numpy import sin, cos, arctan
+from numpy import sin, cos, arctan2
 
 gravitational_constant = 6.67408E-11
 """Гравитационная постоянная Ньютона G"""
@@ -18,16 +18,12 @@ def calculate_force(body, space_objects):
     **space_objects** — список объектов, которые воздействуют на тело.
     """
 
-    force = np.array(0, 0)
+    force = np.array([0., 0.])
     for obj in space_objects:
         if body == obj:
-            continue  # тело не действует гравитационной силой на само себя!
-        r2 = ((body.x - obj.x) ** 2 + (body.y - obj.y) ** 2)
-        r2 = max(r2, body.R ** 2)
-        abs_df = gravitational_constant * body.m * obj.m / r2  # Модуль силы именно этого взаимодействия
-        angle = arctan((obj.y - body.y) / (obj.x - body.x))
-        df = abs_df * np.array(cos(angle), sin(angle))
-        force += df
+            continue  # тело не действует гравитационной силой на само себя
+        dr = np.array([body.x - obj.x, body.y - obj.y])
+        force -= gravitational_constant * body.m * obj.m * dr / max(np.linalg.norm(dr), 1.0e9) ** 3
     body.update_params(Fx=force[0], Fy=force[1])
 
 

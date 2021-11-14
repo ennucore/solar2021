@@ -17,7 +17,7 @@ window_width = 800
 window_height = 800
 """Высота окна"""
 
-scale_factor = 1
+scale_factor = 1e-10
 """Масштабирование экранных координат по отношению к физическим.
 
 Тип: float
@@ -43,7 +43,7 @@ def scale_x(x):
     **x** — x-координата модели.
     """
 
-    return int(x*scale_factor) + window_width//2
+    return int(x * scale_factor) + window_width // 2
 
 
 def scale_y(y):
@@ -57,7 +57,7 @@ def scale_y(y):
 
     **y** — y-координата модели.
     """
-    pass  # FIXME
+    return int(y * scale_factor) + window_height // 2
 
 
 
@@ -85,4 +85,4 @@ class DrawableObject:
         self.obj = obj
 
     def draw(self, surface):
-            pass  # FIXME
+        pg.draw.circle(surface, self.obj.color, (scale_x(self.obj.x), scale_y(self.obj.y)), self.obj.R)

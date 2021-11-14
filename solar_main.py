@@ -28,6 +28,8 @@ time_scale = 1000.0
 space_objects = []
 """Список космических объектов."""
 
+FPS = 50
+
 def execution(delta):
     """Функция исполнения -- выполняется циклически, вызывая обработку всех небесных тел,
     а также обновляя их положение на экране.
@@ -37,6 +39,7 @@ def execution(delta):
     global model_time
     global displayed_time
     recalculate_space_objects_positions([dr.obj for dr in space_objects], delta)
+    print(space_objects)
     model_time += delta
 
 
@@ -158,7 +161,7 @@ def main():
 
         last_time = cur_time
         drawer.update(space_objects, box)
-        time.sleep(1.0 / 60)
+        time.sleep(1.0 / FPS)
 
     print('Modelling finished!')
 

@@ -4,6 +4,7 @@
 from solar_objects import Star, Planet
 from solar_vis import DrawableObject
 
+
 def read_space_objects_data_from_file(input_filename):
     """Cчитывает данные о космических объектах из файла, создаёт сами объекты
     и вызывает создание их графических образов
@@ -34,7 +35,7 @@ def read_space_objects_data_from_file(input_filename):
     return [DrawableObject(obj) for obj in objects]
 
 
-def parse_star_parameters(line, star):
+def parse_star_parameters(line: str, star: Star) -> Star:
     """Считывает данные о звезде из строки.
 
     Входная строка должна иметь слеюущий формат:
@@ -53,7 +54,18 @@ def parse_star_parameters(line, star):
 
     **star** — объект звезды.
     """
-    pass  # FIXME: допишите парсер
+    _, r, c, m, x, y, vx, vy = line.split()
+    r, m, x, y, vx, vy = tuple(map(int, (r, m, x, y, vx, vy)))  # Convert some data to int if nes
+    star.update_params(r=r,
+                       m=m,
+                       vx=vx,
+                       vy=vy,
+                       color=c,
+                       x=x,
+                       y=y
+                       )
+    return star
+
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
@@ -74,6 +86,7 @@ def parse_planet_parameters(line, planet):
     **planet** — объект планеты.
     """
     pass  # FIXME: допишите парсер
+
 
 def write_space_objects_data_to_file(output_filename, space_objects):
     """Сохраняет данные о космических объектах в файл.

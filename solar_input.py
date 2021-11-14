@@ -1,7 +1,7 @@
 # coding: utf-8
 # license: GPLv3
 
-from solar_objects import Star, Planet
+from solar_objects import Star, Planet, SpaceObject
 from solar_vis import DrawableObject
 
 
@@ -35,12 +35,12 @@ def read_space_objects_data_from_file(input_filename):
     return [DrawableObject(obj) for obj in objects]
 
 
-def parse_star_parameters(line: str, star: Star) -> Star:
-    """Считывает данные о звезде из строки.
+def parse_object_parameters(line: str, obj: SpaceObject):
+    """Считывает данные о объекте из строки.
 
     Входная строка должна иметь слеюущий формат:
 
-    Star <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
+    <object> <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
 
     Здесь (x, y) — координаты зведы, (Vx, Vy) — скорость.
 
@@ -52,40 +52,23 @@ def parse_star_parameters(line: str, star: Star) -> Star:
 
     **line** — строка с описание звезды.
 
-    **star** — объект звезды.
+    **obj** — объект.
     """
     _, r, c, m, x, y, vx, vy = line.split()
     r, m, x, y, vx, vy = tuple(map(int, (r, m, x, y, vx, vy)))  # Convert star data to int if nes
-    star.update_params(r=r,
-                       m=m,
-                       vx=vx,
-                       vy=vy,
-                       color=c,
-                       x=x,
-                       y=y
-                       )
-    return star
+    obj.update_params(r=r,
+                      m=m,
+                      vx=vx,
+                      vy=vy,
+                      color=c,
+                      x=x,
+                      y=y
+                      )
+    return obj
 
 
-def parse_planet_parameters(line, planet):
-    """Считывает данные о планете из строки.
-    Входная строка должна иметь слеюущий формат:
-
-    Planet <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
-
-    Здесь (x, y) — координаты планеты, (Vx, Vy) — скорость.
-
-    Пример строки:
-
-    Planet 10 red 1000 1 2 3 4
-
-    Параметры:
-
-    **line** — строка с описание планеты.
-
-    **planet** — объект планеты.
-    """
-    pass  # FIXME: допишите парсер
+parse_star_parameters = parse_object_parameters
+parse_planet_parameters = parse_object_parameters
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):

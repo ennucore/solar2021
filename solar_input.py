@@ -55,7 +55,7 @@ def parse_star_parameters(line: str, star: Star) -> Star:
     **star** — объект звезды.
     """
     _, r, c, m, x, y, vx, vy = line.split()
-    r, m, x, y, vx, vy = tuple(map(int, (r, m, x, y, vx, vy)))  # Convert some data to int if nes
+    r, m, x, y, vx, vy = tuple(map(int, (r, m, x, y, vx, vy)))  # Convert star data to int if nes
     star.update_params(r=r,
                        m=m,
                        vx=vx,

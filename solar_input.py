@@ -6,7 +6,7 @@ from solar_vis import DrawableObject
 
 
 def read_space_objects_data_from_file(input_filename):
-    """Cчитывает данные о космических объектах из файла, создаёт сами объекты
+    """Считывает данные123.find о космических объектах из файла, создаёт сами объекты
     и вызывает создание их графических образов
 
     Параметры:
@@ -55,7 +55,7 @@ def parse_object_parameters(line: str, obj: SpaceObject):
     **obj** — объект.
     """
     _, r, c, m, x, y, vx, vy = line.split()
-    r, m, x, y, vx, vy = tuple(map(int, (r, m, x, y, vx, vy)))  # Convert star data to int if nes
+    r, m, x, y, vx, vy = tuple(map(float, (r, m, x, y, vx, vy)))  # Convert star data to int if nes
     obj.update_params(r=r,
                       m=m,
                       vx=vx,
